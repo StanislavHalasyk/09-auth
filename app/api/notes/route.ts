@@ -1,14 +1,12 @@
-// app/api/notes/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { api } from '../api';
 import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
-import { api } from '../api';
 import { logErrorResponse } from '../_utils/utils';
 
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-
     const search = request.nextUrl.searchParams.get('search') ?? '';
     const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
     const rawTag = request.nextUrl.searchParams.get('tag') ?? '';
@@ -43,6 +41,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
+
     const body = await request.json();
 
     const res = await api.post('/notes', body, {

@@ -1,11 +1,10 @@
-// app/api/users/me/route.ts
 export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { api } from '../../api';
-import { isAxiosError } from 'axios';
+import { cookies } from 'next/headers';
 import { logErrorResponse } from '../../_utils/utils';
+import { isAxiosError } from 'axios';
 
 export async function GET() {
   try {
@@ -16,7 +15,6 @@ export async function GET() {
         Cookie: cookieStore.toString(),
       },
     });
-
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -41,7 +39,6 @@ export async function PATCH(request: Request) {
         Cookie: cookieStore.toString(),
       },
     });
-
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
