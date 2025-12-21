@@ -1,7 +1,5 @@
 import css from './Footer.module.css';
 
-const devName = 'Samir Sharif';
-
 export default function Footer() {
   return (
     <footer className={css.footer}>
