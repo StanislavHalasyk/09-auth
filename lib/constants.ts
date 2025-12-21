@@ -1,0 +1,1 @@
+export const NOTES_TAGS=["Todo" , "Work" , "Personal" , "Meeting" , "Shopping"]

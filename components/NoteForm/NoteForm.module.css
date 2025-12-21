@@ -1,0 +1,122 @@
+/* ВНЕШНЯЯ ОБЁРТКА С ЦЕНТРОВКОЙ */
+.page {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #f5f6f8;
+    /* можно убрать, если есть общий фон */
+}
+
+/* КАРТОЧКА */
+.card {
+    width: 100%;
+    max-width: 720px;
+    /* вот это ограничивает ширину */
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    padding: 24px;
+}
+
+/* ЗАГОЛОВОК */
+.title {
+    margin: 0 0 16px 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* ФОРМА */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ГРУППА */
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    color: #374151;
+}
+
+/* ПОЛЯ */
+.input,
+.textarea,
+.select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.textarea {
+    min-height: 160px;
+    resize: vertical;
+    /* можно растягивать только по вертикали */
+}
+
+/* ФОКУС (аккуратный) */
+.input:focus,
+.textarea:focus,
+.select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* КНОПКИ */
+.actions {
+    display: flex;
+    justify-content: center;
+    /* по центру */
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.submitButton,
+.cancelButton {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.submitButton {
+    background-color: #6366f1;
+    color: #fff;
+}
+
+.submitButton:hover {
+    filter: brightness(0.95);
+}
+
+.submitButton:disabled {
+    background-color: #9aa0ff;
+    cursor: not-allowed;
+}
+
+.cancelButton {
+    background: #f3f4f6;
+    color: #111827;
+    border-color: #e5e7eb;
+}
+
+.cancelButton:hover {
+    background: #e5e7eb;
+}
+
+/* ОШИБКИ (если будешь показывать) */
+.error {
+    color: #dc2626;
+    font-size: 12px;
+}
