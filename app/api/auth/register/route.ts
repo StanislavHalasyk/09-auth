@@ -1,6 +1,6 @@
 // app/api/auth/register/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { nextServer } from '../../api';
+import { api } from '../../api';
 import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { isAxiosError } from 'axios';
@@ -9,7 +9,7 @@ import { logErrorResponse } from '../../_utils/utils';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const apiRes = await nextServer.post('/auth/register', body);
+    const apiRes = await api.post('/auth/register', body);
 
     const cookieStore = await cookies();
     const setCookie = apiRes.headers['set-cookie'];

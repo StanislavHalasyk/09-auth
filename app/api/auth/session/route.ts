@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
-import { nextServer } from '../../api';
+import { api } from '../../api';
 import { ApiError } from '../../types';
 import { logErrorResponse } from '../../_utils/utils';
 
@@ -28,7 +28,7 @@ export async function GET() {
     }
     const cookieHeader = cookieHeaderParts.join('; ');
 
-    const { data, headers } = await nextServer.get('/auth/session', {
+    const { data, headers } = await api.get('/auth/session', {
       headers: {
         Cookie: cookieHeader,
       },

@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { isAxiosError } from 'axios';
-import { nextServer } from '../api';
+import { api } from '../api';
 import { logErrorResponse } from '../_utils/utils';
 
 export async function GET(request: NextRequest) {
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const rawTag = request.nextUrl.searchParams.get('tag') ?? '';
     const tag = rawTag === 'All' ? '' : rawTag;
 
-    const res = await nextServer('/notes', {
+    const res = await api('/notes', {
       params: {
         ...(search !== '' && { search }),
         page,
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
     const body = await request.json();
 
-    const res = await nextServer.post('/notes', body, {
+    const res = await api.post('/notes', body, {
       headers: {
         Cookie: cookieStore.toString(),
         'Content-Type': 'application/json',
