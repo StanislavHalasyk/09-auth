@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { api } from '../../api';
+import { parse } from 'cookie';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../../_utils/utils';
 
@@ -8,21 +10,33 @@ export async function POST(req: Request) {
     const body = await req.json();
     const apiRes = await api.post('auth/login', body);
 
-    const headers = new Headers();
+    const cookieStore = await cookies();
     const setCookie = apiRes.headers['set-cookie'];
 
     if (setCookie) {
-      if (Array.isArray(setCookie)) {
-        setCookie.forEach((cookie) => headers.append('set-cookie', cookie));
-      } else {
-        headers.append('set-cookie', setCookie);
+      const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+
+      for (const cookieStr of cookieArray) {
+        const parsed = parse(cookieStr);
+
+        const options = {
+          path: parsed.Path,
+          expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+          maxAge: parsed['Max-Age'] ? Number(parsed['Max-Age']) : undefined,
+          httpOnly: true,
+        };
+
+        if (parsed.accessToken) {
+          cookieStore.set('accessToken', parsed.accessToken, options);
+        }
+
+        if (parsed.refreshToken) {
+          cookieStore.set('refreshToken', parsed.refreshToken, options);
+        }
       }
     }
 
-    return new NextResponse(JSON.stringify({ success: true }), {
-      status: 200,
-      headers,
-    });
+    return NextResponse.json({ success: true });
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
